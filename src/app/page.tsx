@@ -2,6 +2,7 @@
 
 import { useSession } from 'next-auth/react'
 import { Search } from './components/Search'
+import { QuickSearchTags } from './components/QuickSearchTags'
 
 export default function Home() {
   const session = useSession()
@@ -10,6 +11,7 @@ export default function Home() {
   return (
     <div>
       <Search />
+      <QuickSearchTags />
     </div>
   )
 }
