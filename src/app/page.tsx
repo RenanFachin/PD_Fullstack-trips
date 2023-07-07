@@ -1,5 +1,7 @@
 'use client'
-import { signIn, useSession, signOut } from 'next-auth/react'
+
+import { useSession } from 'next-auth/react'
+import { Search } from './components/Search'
 
 export default function Home() {
   const session = useSession()
@@ -7,15 +9,7 @@ export default function Home() {
 
   return (
     <div>
-      <button onClick={() => signIn()}>
-        Login
-      </button>
-
-      <h1>Olá, {session.data?.user?.name}</h1>
-
-      <button onClick={() => signOut()}>
-        Sair
-      </button>
+      <Search />
     </div>
   )
 }
