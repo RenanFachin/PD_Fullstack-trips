@@ -64,7 +64,7 @@ export function Header() {
 
             {
               isMenuOpen && (
-                <div className="absolute top-12  left-0 w-full h-full rounded-3xl border flex items-center justify-center shadow-md">
+                <div className="z-10 absolute top-12  left-0 w-full h-full rounded-3xl border flex items-center justify-center shadow-md">
                   <button className="text-primary text-xs cursor-pointer" onClick={handleLogOut}>
                     Logout
                   </button>

@@ -1,10 +1,8 @@
 interface TripDescriptionProps {
-  trip: {
-    description: string
-  }
+  description: string
 }
 
-export function TripDescription({ trip }: TripDescriptionProps) {
+export function TripDescription({ description }: TripDescriptionProps) {
   return (
     <div className="flex flex-col p-5">
       <strong className="font-semibold text-secondary text-lg">
@@ -12,7 +10,7 @@ export function TripDescription({ trip }: TripDescriptionProps) {
       </strong>
 
       <p className="text-xs leading-6 text-secondary mt-3">
-        {trip.description}
+        {description}
       </p>
     </div>
   )

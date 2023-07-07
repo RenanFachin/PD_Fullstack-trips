@@ -3,6 +3,7 @@ import { TripHeader } from "./components/TripHeader"
 import { TripReservation } from "./components/TripReservation"
 import { TripDescription } from "./components/TripDescription"
 import { TripHighlights } from "./components/TripHighlights"
+import { TripLocation } from "./components/TripLocation"
 
 
 async function getTripDetails(tripId: string) {
@@ -26,9 +27,14 @@ export default async function Trips({ params }: { params: { tripId: string } }) 
       <TripReservation trip={details} />
 
       {/* Details */}
-      <TripDescription trip={details} />
+      <TripDescription description={details.description} />
 
-      <TripHighlights trip={details} />
+      <TripHighlights highlights={details.highlights} />
+
+      <TripLocation
+        location={details.location}
+        locationDescription={details.locationDescription}
+      />
     </div>
   )
 }
