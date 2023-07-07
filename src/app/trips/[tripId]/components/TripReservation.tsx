@@ -10,33 +10,35 @@ interface TripReservationProps {
 
 export function TripReservation({ trip }: TripReservationProps) {
   return (
-    <div>
-      <div className="flex flex-col px-5 gap-2">
-        <div className="flex gap-3">
-          <DatePicker
-            className="w-full"
-            placeholderText="Data de Início"
-            onChange={() => { }} />
+    <div className="flex flex-col px-5 gap-2">
+      <div className="flex gap-3">
+        <DatePicker
+          className="w-full"
+          placeholderText="Data de Início"
+          onChange={() => { }} />
 
-          <DatePicker
-            className="w-full"
-            placeholderText="Data Final"
-            onChange={() => { }}
-          />
-        </div>
+        <DatePicker
+          className="w-full"
+          placeholderText="Data Final"
+          onChange={() => { }}
+        />
+      </div>
 
-        <Input placeholder={`Número de hóspedes (máx: ${trip.maxGuests})`} />
+      <Input placeholder={`Número de hóspedes (máx: ${trip.maxGuests})`} />
 
-        <div className="flex justify-between">
-          <p className="font-medium text-sm text-secondary">Total: </p>
+      <div className="flex justify-between">
+        <p className="font-medium text-sm text-secondary">Total: </p>
 
-          <span>R$ 2500</span>
-        </div>
+        <span>R$ 2500</span>
+      </div>
 
-        <Button>
+      <div className="pb-10 border-b border-gray-50">
+        <Button className="w-full">
           Reservar agora
         </Button>
       </div>
+
+
     </div>
   )
 }
