@@ -1,12 +1,13 @@
 'use-client'
 
+import { Button } from "@/components/Button";
 import { CurrencyInput } from "@/components/CurrencyInput";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 
 export function Search() {
   return (
-    <section className="container mx-auto p-2 mt-4">
+    <section className="container mx-auto p-2 mt-4 bg-search-background bg-cover bg-no-repeat bg-center">
       <h2
         className="font-semibold text-2xl text-secondary text-center">
         Encontre sua próxima <span className="text-primary">viagem</span>!
@@ -19,6 +20,10 @@ export function Search() {
           <DatePicker placeholderText="Data de ida" onChange={() => { }} className="w-full" />
           <CurrencyInput placeholder="Orçamento" />
         </div>
+
+        <Button>
+          Buscar
+        </Button>
       </div>
 
     </section>
