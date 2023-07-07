@@ -6,6 +6,7 @@ import { signIn, signOut, useSession } from "next-auth/react"
 
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useState } from "react"
+import Link from "next/link"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -28,9 +29,11 @@ export function Header() {
 
   return (
     <div className="container mx-auto px-4 py-0 h-[93px] flex justify-between items-center">
-      <div className="h-8 w-[182px]">
-        <Image src={Logo} alt="Full Stack Week logo" />
-      </div>
+      <Link href="/">
+        <div className="h-8 w-[182px]">
+          <Image src={Logo} alt="Full Stack Week logo" />
+        </div>
+      </Link>
 
 
       {session.status === "unauthenticated" &&
