@@ -42,14 +42,6 @@ export function QuickSearchTags() {
           <span className="text-sm text-gray-100">Fazenda</span>
         </div>
       </div>
-
-      <div className="flex items-center mt-4">
-        <Separator />
-        <h3 className="font-medium text-gray-100 whitespace-nowrap px-3">
-          Destinos recomandados
-        </h3>
-        <Separator />
-      </div>
     </div>
   )
 }
