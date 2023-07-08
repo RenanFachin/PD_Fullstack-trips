@@ -17,11 +17,13 @@ interface TripReservationForm {
 }
 
 export function TripReservation({ trip }: TripReservationProps) {
-  const { register, handleSubmit, formState: { errors }, control } = useForm<TripReservationForm>()
+  const { register, handleSubmit, formState: { errors }, control, watch } = useForm<TripReservationForm>()
 
   async function handleNewReservation(data: any) {
     console.log(data)
   }
+
+  const startDate = watch("startDate")
 
   return (
     <form className="flex flex-col px-5 gap-2" onSubmit={handleSubmit(handleNewReservation)}>
@@ -43,6 +45,7 @@ export function TripReservation({ trip }: TripReservationProps) {
               selected={field.value}
               error={!!errors.startDate}
               errorMessage={errors.startDate?.message}
+              minDate={trip.startDate}
             />}
         />
 
@@ -63,6 +66,8 @@ export function TripReservation({ trip }: TripReservationProps) {
               selected={field.value}
               error={!!errors.startDate}
               errorMessage={errors.endData?.message}
+              maxDate={trip.endDate}
+              minDate={startDate ?? trip.startDate}
             />}
         />
       </div>
