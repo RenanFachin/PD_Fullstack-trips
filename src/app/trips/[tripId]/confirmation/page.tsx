@@ -29,19 +29,23 @@ export default function Trips({ params }: { params: { tripId: string } }) {
           tripId: params.tripId
         }))
       })
-      const { trip, totalPrice } = await response.json()
 
+      const res = await response.json()
 
-      setTrip(trip)
-      setTotalPrice(totalPrice)
+      if (res?.error) {
+        router.push('/')
+      }
+
+      setTrip(res.trip)
+      setTotalPrice(res.totalPrice)
     }
 
-    if(session.status==='unauthenticated'){
+    if (session.status === 'unauthenticated') {
       router.push('/')
     }
 
     fetchTrip()
-  }, [session.status])
+  }, [session.status, searchParams, params.tripId, router])
 
   if (!trip) {
     return null
