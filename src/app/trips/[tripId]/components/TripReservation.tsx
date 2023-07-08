@@ -31,7 +31,7 @@ export function TripReservation({ trip }: TripReservationProps) {
   const router = useRouter()
 
   async function handleNewReservation(data: TripReservationForm) {
-    const response = await fetch('http://localhost:3000/api/trips/check', {
+    const response = await fetch('/api/trips/check', {
       method: 'POST',
       body: Buffer.from(JSON.stringify({
         startDate: data.startDate,
