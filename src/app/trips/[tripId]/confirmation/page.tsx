@@ -9,6 +9,7 @@ import { format } from "date-fns"
 import ptBR from 'date-fns/locale/pt-BR'
 import { Button } from "@/components/Button"
 import { useSession } from "next-auth/react"
+import { toast } from 'react-toastify';
 
 export default function Trips({ params }: { params: { tripId: string } }) {
   const [trip, setTrip] = useState<Trip | null>()
@@ -49,6 +50,31 @@ export default function Trips({ params }: { params: { tripId: string } }) {
 
   if (!trip) {
     return null
+  }
+
+
+  async function handleBuyTrip() {
+    const res = await fetch('http://localhost:3000/api/trips/reservation', {
+      method: 'POST',
+      body: Buffer.from(
+        JSON.stringify({
+          userId: (session.data?.user as any)?.id!,
+          tripId: params.tripId,
+          startDate: searchParams.get("startDate"),
+          endDate: searchParams.get("endDate"),
+          guests: Number(searchParams.get("guests")),
+          totalPaid: totalPrice
+        })
+      )
+    })
+
+    if (!res.ok) {
+      return toast.error("Ocorreu um erro ao realizar sua reserva.", { position: 'bottom-center' })
+    }
+
+    router.push("/")
+
+    toast.success("Reserva realizada com sucesso!", { position: 'bottom-center' })
   }
 
 
@@ -119,7 +145,7 @@ export default function Trips({ params }: { params: { tripId: string } }) {
         </div>
 
 
-        <Button className="mt-7">
+        <Button className="mt-7" onClick={handleBuyTrip}>
           Finalizar compra
         </Button>
       </div>
