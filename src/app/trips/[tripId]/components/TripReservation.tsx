@@ -5,6 +5,7 @@ import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import { Trip } from "@prisma/client";
 import { differenceInDays } from "date-fns";
+import { useRouter } from "next/navigation";
 import { Controller, useForm } from "react-hook-form";
 
 interface TripReservationProps {
@@ -26,6 +27,8 @@ export function TripReservation({ trip }: TripReservationProps) {
     watch,
     setError
   } = useForm<TripReservationForm>()
+
+  const router = useRouter()
 
   async function handleNewReservation(data: TripReservationForm) {
     const response = await fetch('http://localhost:3000/api/trips/check', {
@@ -52,7 +55,7 @@ export function TripReservation({ trip }: TripReservationProps) {
     }
 
     if (res?.error?.code === 'INVALID_START_DATE') {
-      setError("startDate", {
+      return setError("startDate", {
         type: "manual",
         message: 'Data inválida'
       })
@@ -64,6 +67,8 @@ export function TripReservation({ trip }: TripReservationProps) {
         message: 'Data inválida'
       })
     }
+
+    router.push(`/trips/${trip.id}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${data.guests}`)
 
   }
 
