@@ -10,78 +10,81 @@ import ptBR from 'date-fns/locale/pt-BR'
 import { Button } from "@/components/Button"
 import { useSession } from "next-auth/react"
 import { toast } from 'react-toastify';
+import { loadStripe } from "@stripe/stripe-js"
 
 export default function Trips({ params }: { params: { tripId: string } }) {
-  const [trip, setTrip] = useState<Trip | null>()
-  const [totalPrice, setTotalPrice] = useState(0)
+  const [trip, setTrip] = useState<Trip | null>();
+  const [totalPrice, setTotalPrice] = useState<number>(0);
 
-  const session = useSession()
-  const router = useRouter()
+  const router = useRouter();
 
-  const searchParams = useSearchParams()
+  const { status, data } = useSession();
+
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const fetchTrip = async () => {
-      const response = await fetch(`http://localhost:3000/api/trips/check`, {
-        method: 'POST',
-        body: Buffer.from(JSON.stringify({
+      const response = await fetch(`/api/trips/check`, {
+        method: "POST",
+        body: JSON.stringify({
+          tripId: params.tripId,
           startDate: searchParams.get("startDate"),
-          endDate: searchParams.get('endDate'),
-          tripId: params.tripId
-        }))
-      })
+          endDate: searchParams.get("endDate"),
+        }),
+      });
 
-      const res = await response.json()
+      const res = await response.json();
 
       if (res?.error) {
-        router.push('/')
+        return router.push("/");
       }
 
-      setTrip(res.trip)
-      setTotalPrice(res.totalPrice)
+      setTrip(res.trip);
+      setTotalPrice(res.totalPrice);
+    };
+
+    if (status === "unauthenticated") {
+      router.push("/");
     }
 
-    if (session.status === 'unauthenticated') {
-      router.push('/')
-    }
+    fetchTrip();
+  }, [status, searchParams, params, router]);
 
-    fetchTrip()
-  }, [session.status, searchParams, params.tripId, router])
+  if (!trip) return null;
 
-  if (!trip) {
-    return null
-  }
-
-
-  async function handleBuyTrip() {
-    const res = await fetch('http://localhost:3000/api/trips/reservation', {
-      method: 'POST',
+  const handleBuyClick = async () => {
+    const res = await fetch("/api/payment", {
+      method: "POST",
       body: Buffer.from(
         JSON.stringify({
-          userId: (session.data?.user as any)?.id!,
           tripId: params.tripId,
           startDate: searchParams.get("startDate"),
           endDate: searchParams.get("endDate"),
           guests: Number(searchParams.get("guests")),
-          totalPaid: totalPrice
+          totalPrice,
+          coverImage: trip.coverImage,
+          name: trip.name,
+          description: trip.description,
         })
-      )
-    })
+      ),
+    });
 
     if (!res.ok) {
-      return toast.error("Ocorreu um erro ao realizar sua reserva.", { position: 'bottom-center' })
+      return toast.error("Ocorreu um erro ao realizar a reserva!", { position: "bottom-center" });
     }
 
-    router.push("/")
+    const { sessionId } = await res.json();
 
-    toast.success("Reserva realizada com sucesso!", { position: 'bottom-center' })
-  }
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_KEY as string);
 
+    await stripe?.redirectToCheckout({ sessionId });
 
-  const startDate = new Date(searchParams.get("startDate") as string)
-  const endDate = new Date(searchParams.get("endDate") as string)
-  const guests = searchParams.get("guests")
+    toast.success("Reserva realizada com sucesso!", { position: "bottom-center" });
+  };
 
+  const startDate = new Date(searchParams.get("startDate") as string);
+  const endDate = new Date(searchParams.get("endDate") as string);
+  const guests = searchParams.get("guests");
   return (
     <div className="container mx-auto p-5">
       <h2 className="font-semibold text-xl text-secondary">Sua viagem</h2>
@@ -145,7 +148,7 @@ export default function Trips({ params }: { params: { tripId: string } }) {
         </div>
 
 
-        <Button className="mt-7" onClick={handleBuyTrip}>
+        <Button className="mt-7" onClick={handleBuyClick}>
           Finalizar compra
         </Button>
       </div>
