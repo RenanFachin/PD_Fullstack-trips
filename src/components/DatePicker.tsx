@@ -6,6 +6,7 @@ import _DatePicker, {
 } from "react-datepicker";
 import ptBR from "date-fns/locale/pt-BR";
 
+
 import "react-datepicker/dist/react-datepicker.css";
 
 registerLocale("pt-BR", ptBR);
@@ -28,6 +29,7 @@ function DatePicker(
   return (
     <div className="flex w-full flex-col">
       <_DatePicker
+        dateFormat='dd/MM/yyyy'
         locale="pt-BR"
         wrapperClassName="w-full"
         className={inputClassName}
