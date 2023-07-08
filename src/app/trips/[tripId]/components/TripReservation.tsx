@@ -45,7 +45,7 @@ export function TripReservation({ trip }: TripReservationProps) {
         message: 'Esta data já está em uso.'
       })
 
-      setError("endDate", {
+      return setError("endDate", {
         type: "manual",
         message: 'Esta data já está em uso.'
       })
@@ -59,7 +59,7 @@ export function TripReservation({ trip }: TripReservationProps) {
     }
 
     if (res?.error?.code === 'INVALID_END_DATE') {
-      setError("endDate", {
+      return setError("endDate", {
         type: "manual",
         message: 'Data inválida'
       })
@@ -119,9 +119,16 @@ export function TripReservation({ trip }: TripReservationProps) {
 
       <Input
         placeholder={`Número de hóspedes (máx: ${trip.maxGuests})`}
-        {...register('guests', { required: { value: true, message: 'Número de hóspedes é obrigatório' } })}
+        {...register('guests', {
+          required: { value: true, message: 'Número de hóspedes é obrigatório' },
+          max: {
+            value: trip.maxGuests,
+            message: `O número de hóspedes não pode ser mais que ${trip.maxGuests}`
+          }
+        })}
         error={!!errors.guests}
         errorMessage={errors.guests?.message}
+        type="number"
       />
 
       <div className="flex justify-between">
