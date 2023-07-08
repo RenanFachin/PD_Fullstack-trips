@@ -16,20 +16,16 @@ export default function MyTrips() {
 
   const router = useRouter()
 
+  const fetchReservation = async () => {
+    const response = await fetch(`/api/user/${(data?.user as any)?.id}/reservations`);
+    const trips = await response.json()
+    setUserReservation(trips)
+  }
+
+
   useEffect(() => {
     if (status === "unauthenticated" || !data?.user) {
       return router.push('/')
-    }
-
-
-    const fetchReservation = async () => {
-      const response = await fetch(`/api/user/${(data?.user as any)?.id}/reservations`);
-      const trips = await response.json()
-
-
-      setUserReservation(trips)
-
-      console.log(trips)
     }
 
     fetchReservation()
@@ -44,6 +40,7 @@ export default function MyTrips() {
         <UserReservationItem
           key={reservation.id}
           reservation={reservation}
+          fetchReservation={fetchReservation}
         />
       )) : (
         <div className="flex flex-col gap-5">
