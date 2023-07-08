@@ -2,7 +2,8 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
 }
 
 generator erd {
@@ -42,7 +43,7 @@ model TripReservation {
   startDate DateTime
   endDate   DateTime
   totalPaid Decimal  @db.Decimal(8, 2)
-  guests    Int @default(5)
+  guests    Int      @default(5)
 
   trip Trip @relation(fields: [tripId], references: [id])
   user User @relation(fields: [userId], references: [id])
