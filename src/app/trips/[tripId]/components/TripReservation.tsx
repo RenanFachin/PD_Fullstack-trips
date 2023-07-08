@@ -4,6 +4,7 @@ import { Button } from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/Input";
 import { Trip } from "@prisma/client";
+import { differenceInDays } from "date-fns";
 import { Controller, useForm } from "react-hook-form";
 
 interface TripReservationProps {
@@ -13,17 +14,29 @@ interface TripReservationProps {
 interface TripReservationForm {
   guests: number
   startDate: Date | null
-  endData: Date | null
+  endDate: Date | null
 }
 
 export function TripReservation({ trip }: TripReservationProps) {
   const { register, handleSubmit, formState: { errors }, control, watch } = useForm<TripReservationForm>()
 
-  async function handleNewReservation(data: any) {
-    console.log(data)
+  async function handleNewReservation(data: TripReservationForm) {
+    const response = await fetch('http://localhost:3000/api/trips', {
+      method: 'POST',
+      body: Buffer.from(JSON.stringify({
+        startDate: data.startDate,
+        endDate: data.endDate,
+        tripId: trip.id
+      }))
+    })
+
+    const res = await response.json()
+
+    console.log({ res })
   }
 
   const startDate = watch("startDate")
+  const endDate = watch("endDate")
 
   return (
     <form className="flex flex-col px-5 gap-2" onSubmit={handleSubmit(handleNewReservation)}>
@@ -50,7 +63,7 @@ export function TripReservation({ trip }: TripReservationProps) {
         />
 
         <Controller
-          name="endData"
+          name="endDate"
           rules={{
             required: {
               value: true,
@@ -65,7 +78,7 @@ export function TripReservation({ trip }: TripReservationProps) {
               onChange={field.onChange}
               selected={field.value}
               error={!!errors.startDate}
-              errorMessage={errors.endData?.message}
+              errorMessage={errors.endDate?.message}
               maxDate={trip.endDate}
               minDate={startDate ?? trip.startDate}
             />}
@@ -82,7 +95,13 @@ export function TripReservation({ trip }: TripReservationProps) {
       <div className="flex justify-between">
         <p className="font-medium text-sm text-secondary">Total: </p>
 
-        <span>R$ 2500</span>
+        <span>
+          {startDate && endDate ?
+            `R$ ${(differenceInDays(endDate, startDate) * (trip.pricePerDay as any))}`
+            :
+            'R$ -'
+          }
+        </span>
       </div>
 
       <div className="pb-10 border-b border-gray-50">
