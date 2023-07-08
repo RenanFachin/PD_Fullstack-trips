@@ -31,6 +31,9 @@ export function Header() {
   }
 
   function handleToMyTrips() {
+
+    setIsMenuOpen(!isMenuOpen)
+
     router.push('/my-trips')
   }
 

@@ -4,8 +4,6 @@ import { NextResponse } from "next/server"
 export async function GET(request: Request, { params: { userId } }: { params: { userId: string } }) {
   const { searchParams } = new URL(request.url);
 
-  console.log({ userId });
-
   if (!userId) {
     return
   }
