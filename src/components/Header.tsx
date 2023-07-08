@@ -7,9 +7,12 @@ import { signIn, signOut, useSession } from "next-auth/react"
 import { AiOutlineMenu } from 'react-icons/ai'
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+
+  const router = useRouter()
   const session = useSession()
 
 
@@ -25,6 +28,10 @@ export function Header() {
 
   function handleTogleHamburguerMenu() {
     setIsMenuOpen(!isMenuOpen)
+  }
+
+  function handleToMyTrips() {
+    router.push('/my-trips')
   }
 
   return (
@@ -67,8 +74,20 @@ export function Header() {
 
             {
               isMenuOpen && (
-                <div className="z-10 absolute top-12  left-0 w-full h-full rounded-3xl border flex items-center justify-center shadow-md">
-                  <button className="text-primary text-xs cursor-pointer" onClick={handleLogOut}>
+                <div className="z-10 absolute top-12 left-0 w-full h-full rounded-3xl flex items-center flex-col justify-center shadow-md gap-2">
+
+                  <button
+                    className="text-primary text-xs cursor-pointer"
+                    onClick={handleToMyTrips}
+                  >
+                    Minhas viagens
+                  </button>
+
+
+                  <button
+                    className="text-primary text-xs cursor-pointer"
+                    onClick={handleLogOut}
+                  >
                     Logout
                   </button>
                 </div>
