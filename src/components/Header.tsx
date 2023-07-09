@@ -38,7 +38,7 @@ export function Header() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-0 h-[93px] flex justify-between items-center">
+    <div className="container mx-auto px-4 py-0 h-[93px] flex justify-between items-center lg:border-b lg:shadow-sm">
       <Link href="/">
         <div className="h-8 w-[182px]">
           <Image src={Logo} alt="Full Stack Week logo" />

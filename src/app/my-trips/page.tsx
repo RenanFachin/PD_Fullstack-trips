@@ -34,15 +34,19 @@ export default function MyTrips() {
 
   return (
     <div className="container mx-auto p-5">
-      <h2 className="font-semibold text-secondary text-xl">Minhas viagens</h2>
+      <h2 className="font-semibold text-secondary text-xl lg:mb-3">Minhas viagens</h2>
 
-      {userReservations.length > 0 ? userReservations.map(reservation => (
-        <UserReservationItem
+      {userReservations.length > 0 ? (userReservations.map(reservation => (
+        <div
           key={reservation.id}
-          reservation={reservation}
-          fetchReservation={fetchReservation}
-        />
-      )) : (
+          className="flex flex-col lg:grid lg:grid-cols-4 lg:gap-10"
+        >
+          <UserReservationItem
+            reservation={reservation}
+            fetchReservation={fetchReservation}
+          />
+        </div>
+      ))) : (
         <div className="flex flex-col gap-5">
           <p className="text-secondary mt-3">Você ainda não possui nenhuma viagem</p>
 

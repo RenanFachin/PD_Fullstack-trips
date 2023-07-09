@@ -86,7 +86,7 @@ export default function Trips({ params }: { params: { tripId: string } }) {
   const endDate = new Date(searchParams.get("endDate") as string);
   const guests = searchParams.get("guests");
   return (
-    <div className="container mx-auto p-5">
+    <div className="container mx-auto p-5 lg:max-w-[600px]">
       <h2 className="font-semibold text-xl text-secondary">Sua viagem</h2>
 
       <div className="flex flex-col p-5 mt-5 border-gray-50 border shadow-lg rounded-lg">
