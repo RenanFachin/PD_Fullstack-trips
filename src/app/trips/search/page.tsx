@@ -34,8 +34,11 @@ export default function Trips() {
 
 
   return (
-    <div className="container mx-auto flex flex-col items-center p-5 gap-3">
-      <h2 className="text-secondary font-semibold text-xl">Hospedagens encontradas</h2>
+    <div className="container mx-auto flex flex-col items-center p-5 gap-3 lg:grid lg:grid-cols-4 lg:gap-1">
+      <h2 className="text-secondary font-semibold text-xl lg:text-3xl">
+        Hospedagens encontradas
+      </h2>
+
       {trips.map(trip => <TripItem key={trip.id} trip={trip} />)}
     </div>
   )

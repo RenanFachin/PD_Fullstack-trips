@@ -5,7 +5,7 @@ interface TripDescriptionProps {
 export function TripDescription({ description }: TripDescriptionProps) {
   return (
     <div className="flex flex-col p-5">
-      <strong className="font-semibold text-secondary text-lg">
+      <strong className="font-semibold text-secondary text-lg lg:text-2xl">
         Sobre a viagem
       </strong>
 

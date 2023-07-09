@@ -20,16 +20,22 @@ export default async function Trips({ params }: { params: { tripId: string } }) 
   const details = await getTripDetails(params.tripId)
 
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto lg:px-40">
       <TripHeader details={details} />
 
-      {/* Inputs */}
-      <TripReservation trip={details} />
+      <div className="flex flex-col lg:flex-row lg:mt-5 lg:gap-20">
+        <div className="lg:order-2">
+          {/* Inputs */}
+          <TripReservation trip={details} />
+        </div>
 
-      {/* Details */}
-      <TripDescription description={details.description} />
+        <div className="lg:order-1">
+          {/* Details */}
+          <TripDescription description={details.description} />
 
-      <TripHighlights highlights={details.highlights} />
+          <TripHighlights highlights={details.highlights} />
+        </div>
+      </div>
 
       <TripLocation
         location={details.location}
