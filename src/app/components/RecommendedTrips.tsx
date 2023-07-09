@@ -23,7 +23,7 @@ const RecommendadedTrips = async () => {
         <Separator />
       </div>
 
-      <div className="flex flex-col items-center mt-5 gap-5">
+      <div className="flex flex-col items-center mt-5 gap-5 lg:grid lg:grid-cols-4 ">
         {data.map((trip: Trip) => (
           <TripItem key={trip.id} trip={trip} />
         ))}

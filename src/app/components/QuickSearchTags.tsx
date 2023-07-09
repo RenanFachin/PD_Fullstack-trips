@@ -18,36 +18,36 @@ export function QuickSearchTags() {
         <Separator />
       </div>
 
-      <div className="flex w-full justify-between mt-4">
-        <div className="flex flex-col items-center justify-center gap-1">
+      <div className="flex w-full justify-between mt-4 lg:mt-10 lg:justify-center lg:gap-40">
+        <div className="flex flex-col items-center justify-center gap-1 lg:hover:scale-110">
           <Link href={'/trips/search?text=hotel'}>
             <Image width={32} height={32} src={HotelImage} alt="Hotel" />
           </Link>
-          <span className="text-sm text-gray-100">Hotel</span>
+          <span className="text-sm text-gray-100 lg:text-base">Hotel</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-1">
+        <div className="flex flex-col items-center justify-center gap-1 lg:hover:scale-110">
           <Link href={'/trips/search?text=chale'}>
             <Image width={32} height={32} src={CottageImage} alt="Chalé" />
           </Link>
 
-          <span className="text-sm text-gray-100">Chalé</span>
+          <span className="text-sm text-gray-100 lg:text-base">Chalé</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-1">
+        <div className="flex flex-col items-center justify-center gap-1 lg:hover:scale-110">
           <Link href={'/trips/search?text=pousada'}>
             <Image width={32} height={32} src={InnImage} alt="Pousada" />
           </Link>
 
-          <span className="text-sm text-gray-100">Pousada</span>
+          <span className="text-sm text-gray-100 lg:text-base">Pousada</span>
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-1">
+        <div className="flex flex-col items-center justify-center gap-1 lg:hover:scale-110">
           <Link href={'/trips/search?text=fazenda'}>
             <Image width={32} height={32} src={FarmImage} alt="Fazenda" />
           </Link>
 
-          <span className="text-sm text-gray-100">Fazenda</span>
+          <span className="text-sm text-gray-100 lg:text-base">Fazenda</span>
         </div>
       </div>
     </div>

@@ -23,13 +23,13 @@ export function Search() {
   }
 
   return (
-    <section className="container mx-auto p-2 mt-4 bg-search-background bg-cover bg-no-repeat bg-center">
+    <section className="container mx-auto p-2 mt-4 bg-search-background bg-cover bg-no-repeat bg-center lg:py-28">
       <h2
-        className="font-semibold text-2xl text-secondary text-center">
+        className="font-semibold text-2xl text-secondary text-center lg:text-3xl">
         Encontre sua próxima <span className="text-primary">viagem</span>!
       </h2>
 
-      <div className="flex flex-col gap-4 mt-5">
+      <div className="flex flex-col gap-4 mt-5 lg:flex-row lg:max-w-[948px] lg:mx-auto lg:p-4 lg:bg-primary lg:bg-opacity-25 lg:rounded-xl lg:mt-15">
         <Input
           placeholder="Onde você quer ir?"
           {...register("text", {
@@ -41,7 +41,7 @@ export function Search() {
           error={!!errors.text}
         />
 
-        <div className="flex gap-4">
+        <div className="flex gap-4 lg:w-full">
           {/* <DatePicker placeholderText="Data de ida" onChange={() => { }} className="w-full" /> */}
 
           <Controller
@@ -75,7 +75,7 @@ export function Search() {
 
         </div>
 
-        <Button onClick={() => handleSubmit(onSubmit)()}>
+        <Button onClick={() => handleSubmit(onSubmit)()} className="lg:w-1/2">
           Buscar
         </Button>
       </div>
